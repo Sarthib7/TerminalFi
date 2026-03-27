@@ -1,26 +1,126 @@
 @import "tailwindcss";
+@import "react-mosaic-component/react-mosaic-component.css";
 
+/* ===== Terminal Dark Theme ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #08080c;
+  --bg-secondary: #0e0e14;
+  --bg-panel: #13131b;
+  --bg-panel-header: #1a1a25;
+  --bg-input: #1a1a25;
+  --bg-hover: #22222e;
+
+  --border-color: #2a2a3a;
+  --border-active: #3a3a5a;
+
+  --text-primary: #e4e4ef;
+  --text-secondary: #8888a0;
+  --text-muted: #55556a;
+
+  --accent-green: #00ff88;
+  --accent-red: #ff4466;
+  --accent-amber: #ffaa00;
+  --accent-cyan: #00ccff;
+  --accent-blue: #4488ff;
+
+  --peg-safe: #00ff88;
+  --peg-warning: #ffaa00;
+  --peg-danger: #ff4466;
+
+  --font-mono: var(--font-jetbrains-mono, "JetBrains Mono"), "Fira Code", monospace;
+  --font-sans: var(--font-space-grotesk, "Space Grotesk"), system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ===== Base ===== */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow: hidden; /* Terminal fills viewport */
+}
+
+/* ===== Override react-mosaic default styles ===== */
+.mosaic-root {
+  background: var(--bg-primary) !important;
+}
+
+.mosaic-window {
+  border-radius: 0 !important;
+}
+
+.mosaic-window .mosaic-window-toolbar {
+  display: none !important; /* We use our own panel headers */
+}
+
+.mosaic-window .mosaic-window-body {
+  background: var(--bg-panel) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.mosaic-split {
+  background: var(--bg-primary) !important;
+}
+
+.mosaic-split:hover {
+  background: var(--accent-cyan) !important;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-active);
+}
+
+/* ===== Number flash animation ===== */
+@keyframes flash-green {
+  0% { color: var(--accent-green); }
+  100% { color: var(--text-primary); }
+}
+
+@keyframes flash-red {
+  0% { color: var(--accent-red); }
+  100% { color: var(--text-primary); }
+}
+
+.flash-up {
+  animation: flash-green 1s ease-out;
+}
+
+.flash-down {
+  animation: flash-red 1s ease-out;
+}
+
+/* ===== Wallet adapter style overrides ===== */
+.wallet-adapter-button {
+  background: var(--bg-input) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  height: 32px !important;
+  padding: 0 12px !important;
+  border-radius: 4px !important;
+}
+
+.wallet-adapter-button:hover {
+  background: var(--bg-hover) !important;
+  border-color: var(--border-active) !important;
+}
+
+.wallet-adapter-modal-wrapper {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
 }
