@@ -140,7 +140,7 @@ export function YieldPanel() {
                 const maxTvl = Math.max(
                   ...Array.from(protocolYields.values())
                     .flat()
-                    .map((y) => y.tvl)
+                    .map((y) => y?.tvl ?? 0)
                 );
 
                 return (

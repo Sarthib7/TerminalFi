@@ -14,25 +14,31 @@ import { SwapPanel } from "@/components/panels/SwapPanel";
 import type { PanelId } from "@/types";
 
 const DEFAULT_LAYOUT: MosaicNode<PanelId> = {
+  type: "split",
   direction: "row",
-  first: {
-    direction: "column",
-    first: "portfolio",
-    second: "yield",
-    splitPercentage: 50,
-  },
-  second: {
-    direction: "column",
-    first: "peg-monitor",
-    second: {
-      direction: "row",
-      first: "liquidity",
-      second: "swap",
-      splitPercentage: 50,
+  splitPercentages: [40, 60],
+  children: [
+    {
+      type: "split",
+      direction: "column",
+      splitPercentages: [50, 50],
+      children: ["portfolio", "yield"],
     },
-    splitPercentage: 50,
-  },
-  splitPercentage: 40,
+    {
+      type: "split",
+      direction: "column",
+      splitPercentages: [50, 50],
+      children: [
+        "peg-monitor",
+        {
+          type: "split",
+          direction: "row",
+          splitPercentages: [50, 50],
+          children: ["liquidity", "swap"],
+        },
+      ],
+    },
+  ],
 };
 
 export function TerminalShell() {
@@ -72,7 +78,7 @@ export function TerminalShell() {
         path={[]}
         title=""
         createNode={() => "portfolio"}
-        renderToolbar={() => null}
+        renderToolbar={() => <></>}
       >
         {content}
       </MosaicWindow>
