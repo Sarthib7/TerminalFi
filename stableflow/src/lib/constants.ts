@@ -1,6 +1,7 @@
 export const HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY || "";
 export const HELIUS_RPC_URL = `https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}`;
 export const HELIUS_API_URL = `https://api.helius.xyz`;
+export const JUPITER_API_KEY = process.env.NEXT_PUBLIC_JUPITER_API_KEY || "";
 export const JUPITER_PRICE_URL = "https://api.jup.ag/price/v2";
 export const JUPITER_QUOTE_URL = "https://quote-api.jup.ag/v6/quote";
 export const JUPITER_SWAP_URL = "https://quote-api.jup.ag/v6/swap";

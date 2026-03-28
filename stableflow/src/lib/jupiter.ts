@@ -1,5 +1,18 @@
-import { JUPITER_PRICE_URL, JUPITER_QUOTE_URL, JUPITER_SWAP_URL } from "./constants";
+import { JUPITER_PRICE_URL, JUPITER_QUOTE_URL, JUPITER_SWAP_URL, JUPITER_API_KEY } from "./constants";
 import type { JupiterQuote } from "@/types";
+
+/**
+ * Helper to build headers for Jupiter API requests
+ */
+function getJupiterHeaders(): HeadersInit {
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+  if (JUPITER_API_KEY) {
+    headers["x-api-key"] = JUPITER_API_KEY;
+  }
+  return headers;
+}
 
 /**
  * Fetch real-time prices for multiple tokens from Jupiter.
@@ -9,8 +22,13 @@ export async function fetchJupiterPrices(
   mints: string[]
 ): Promise<Record<string, number>> {
   const url = `${JUPITER_PRICE_URL}?ids=${mints.join(",")}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Jupiter price API error: ${res.status}`);
+  const res = await fetch(url, {
+    headers: getJupiterHeaders(),
+  });
+  if (!res.ok) {
+    const errorText = await res.text().catch(() => "Unknown error");
+    throw new Error(`Jupiter price API error: ${res.status} - ${errorText}`);
+  }
   const data = await res.json();
 
   const prices: Record<string, number> = {};
@@ -38,7 +56,9 @@ export async function fetchJupiterQuote(
     slippageBps: slippageBps.toString(),
     restrictIntermediateTokens: "true",
   });
-  const res = await fetch(`${JUPITER_QUOTE_URL}?${params}`);
+  const res = await fetch(`${JUPITER_QUOTE_URL}?${params}`, {
+    headers: getJupiterHeaders(),
+  });
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`Jupiter quote error: ${res.status} — ${text}`);
@@ -56,7 +76,7 @@ export async function fetchJupiterSwapTransaction(
 ): Promise<string> {
   const res = await fetch(JUPITER_SWAP_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getJupiterHeaders(),
     body: JSON.stringify({
       quoteResponse,
       userPublicKey,
