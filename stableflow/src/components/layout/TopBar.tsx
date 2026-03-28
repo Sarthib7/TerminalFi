@@ -50,29 +50,69 @@ export function TopBar({ onSearchClick }: TopBarProps) {
         STABLEFLOW
       </div>
 
-      {/* Center: Search trigger */}
-      <button
-        onClick={onSearchClick}
-        className="flex items-center gap-2 px-3 py-1 rounded transition-colors"
-        style={{
-          background: "var(--bg-input)",
-          border: "1px solid var(--border-color)",
-          color: "var(--text-muted)",
-          fontFamily: "var(--font-mono)",
-          fontSize: "11px",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = "var(--bg-hover)";
-          e.currentTarget.style.borderColor = "var(--border-active)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = "var(--bg-input)";
-          e.currentTarget.style.borderColor = "var(--border-color)";
-        }}
-      >
-        <Search size={12} />
-        <span>⌘K to search...</span>
-      </button>
+      {/* Center: Navigation */}
+      <div className="flex items-center gap-6">
+        <a
+          href="/"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            color: "var(--text-secondary)",
+            textDecoration: "none",
+            padding: "4px 12px",
+            borderRadius: "2px",
+            transition: "all 0.2s",
+            textTransform: "uppercase",
+            letterSpacing: "0.05em",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "var(--bg-hover)";
+            e.currentTarget.style.color = "var(--accent-cyan)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "transparent";
+            e.currentTarget.style.color = "var(--text-secondary)";
+          }}
+        >
+          Dashboard
+        </a>
+        <a
+          href="/portfolio"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            color: "var(--text-secondary)",
+            textDecoration: "none",
+            padding: "4px 12px",
+            borderRadius: "2px",
+            transition: "all 0.2s",
+            textTransform: "uppercase",
+            letterSpacing: "0.05em",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "var(--bg-hover)";
+            e.currentTarget.style.color = "var(--accent-cyan)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "transparent";
+            e.currentTarget.style.color = "var(--text-secondary)";
+          }}
+        >
+          Portfolio
+        </a>
+        <button
+          onClick={onSearchClick}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "var(--text-muted)",
+            cursor: "pointer",
+            padding: "4px",
+          }}
+        >
+          <Search size={14} />
+        </button>
+      </div>
 
       {/* Right: SOL price + Wallet button */}
       <div className="flex items-center gap-3">
