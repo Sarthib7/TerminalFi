@@ -8,7 +8,13 @@ import type { LendingYield } from "@/types";
 export function useYields() {
   return useQuery<LendingYield[]>({
     queryKey: ["stablecoin-yields"],
-    queryFn: fetchStablecoinYields,
+    queryFn: async () => {
+      console.log("[Yields] Fetching from DefiLlama...");
+      const result = await fetchStablecoinYields();
+      console.log(`[Yields] ✅ Fetched ${result.length} yield opportunities`);
+      return result;
+    },
     refetchInterval: YIELD_POLL_INTERVAL,
+    retry: 2,
   });
 }

@@ -18,7 +18,7 @@ export interface StablecoinPrice {
   pegDeviation: number; // e.g. -0.0002 (price - 1.0, or price - peg target)
   pegDeviationPercent: number; // e.g. -0.02
   confidence?: number; // Pyth confidence interval
-  source: "jupiter" | "pyth";
+  source: "jupiter" | "pyth" | "coingecko" | "fallback";
   updatedAt: number; // unix timestamp
 }
 

@@ -2,11 +2,11 @@
 
 import dynamic from "next/dynamic";
 
-const TerminalShell = dynamic(
-  () => import("@/components/layout/TerminalShell").then((mod) => ({ default: mod.TerminalShell })),
+const DashboardShell = dynamic(
+  () => import("@/components/layout/DashboardShell").then((mod) => ({ default: mod.DashboardShell })),
   { ssr: false }
 );
 
 export default function Home() {
-  return <TerminalShell />;
+  return <DashboardShell />;
 }

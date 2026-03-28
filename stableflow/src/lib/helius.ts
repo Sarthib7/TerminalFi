@@ -1,5 +1,5 @@
 import { HELIUS_API_KEY, HELIUS_API_URL, HELIUS_RPC_URL } from "./constants";
-import { STABLECOIN_LIST } from "./stablecoins";
+import { ASSET_LIST } from "./assets";
 import type { TokenBalance } from "@/types";
 
 /**
@@ -23,22 +23,22 @@ export async function fetchStablecoinBalances(
   const balances: TokenBalance[] = [];
 
   for (const token of tokens) {
-    const stablecoin = STABLECOIN_LIST.find((s) => s.mint === token.mint);
-    if (!stablecoin) continue; // skip non-stablecoins
+    const asset = ASSET_LIST.find((a) => a.mint === token.mint);
+    if (!asset) continue; // skip unknown assets
 
     const humanAmount = token.amount / 10 ** token.decimals;
     if (humanAmount < 0.01) continue; // skip dust
 
-    const price = prices[token.mint] || 1.0;
+    const price = prices[token.mint] || (asset.category === "stablecoin" ? 1.0 : 0);
     balances.push({
       mint: token.mint,
-      symbol: stablecoin.symbol,
-      name: stablecoin.name,
+      symbol: asset.symbol,
+      name: asset.name,
       amount: humanAmount,
       amountRaw: token.amount.toString(),
       decimals: token.decimals,
       usdValue: humanAmount * price,
-      logoUrl: stablecoin.logoUrl,
+      logoUrl: asset.logoUrl,
     });
   }
 

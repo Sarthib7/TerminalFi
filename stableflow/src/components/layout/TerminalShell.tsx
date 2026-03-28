@@ -8,7 +8,7 @@ import { StatusBar } from "./StatusBar";
 import { CommandPalette } from "./CommandPalette";
 import { PortfolioPanel } from "@/components/panels/PortfolioPanel";
 import { PegMonitorPanel } from "@/components/panels/PegMonitorPanel";
-import { LiquidityPanel } from "@/components/panels/LiquidityPanel";
+import { LiveLiquidityPanel } from "@/components/panels/LiveLiquidityPanel";
 import { YieldPanel } from "@/components/panels/YieldPanel";
 import { SwapPanel } from "@/components/panels/SwapPanel";
 import type { PanelId } from "@/types";
@@ -57,7 +57,7 @@ export function TerminalShell() {
         content = <PegMonitorPanel />;
         break;
       case "liquidity":
-        content = <LiquidityPanel />;
+        content = <LiveLiquidityPanel />;
         break;
       case "yield":
         content = <YieldPanel />;
